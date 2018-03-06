@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/base.css">
+        <style>
+        	body{background-image: url('img/bk.png');background-repeat:no-repeat;background-size: 100%;}
+			.cbox{height: 100vh;background-color: rgba(0,100,167,.5);overflow: hidden;position:relative;}
+			.box{height: 100vh;overflow: hidden;}
+			.next{width: 30%;height: 2.5em;position: absolute;bottom: 1em;left: 35%; background: url('img/dw.gif') no-repeat 100% center;cursor:pointer;z-index: 9}
+			.selectbox{text-align: center;}
+			.selectbox select{width: 60%; height: 2.5em;margin: 2em 0; background: #bbd6e7;}
+			select, option{text-align: center;}
+			.title,.content{color: #fff;}
+			.title{font-size: 1.2em;margin: 2em 0;}
+			.content{text-indent: 2}
+        </style>
+    </head>
+    <body ontouchstart>
+        <div class="cbox bkant">
+        	<div class="next"></div>
+        	<div class="ub box">
+	        	<div class="ub ub-f1 ub-ver ub-pc ub-ac selectbox">
+					<select name="month" class="ub ub-pc">
+						<option value="0">请选择出生月份</option>
+						<option value="1">1月</option>
+						<option value="2">2月</option>
+						<option value="3">3月</option>
+						<option value="4">4月</option>
+						<option value="5">5月</option>
+						<option value="6">6月</option>
+						<option value="7">7月</option>
+						<option value="8">8月</option>
+						<option value="9">9月</option>
+						<option value="10">10月</option>
+						<option value="11">11月</option>
+						<option value="12">12月</option>
+					</select>
+					<select name="day" class="ub ub-pc" disabled>
+						<option value="0">请选择出生日期</option>
+					</select>
+				</div>
+			</div>
+			<div class="ub ub-ver box">
+				<div class="ub ub-pc title"></div>
+				<div class="ub content"></div>
+			</div>
+        </div>
+
+        <script src="js/zepto.min.js"></script>
+        <script src="js/fx.js"></script>
+    </body>
+    <script>
+    	init();
+    	$('[name=month]').change(function(e) {
+    		var me = $(this);
+    		var v  = me.val();
+    		var m  = getDaysInMonth(v);
+    		var t  = '';
+    		var i  = 0;
+    		var n  = $('[name=day]');
+    		if(v == 0){
+    			n.attr('disabled','disabled')
+    		}else{
+    			n.removeAttr('disabled')
+    			n.html('<option value="0">请选择出生日期</option>');
+    		}
+    		for(;i < m;i++){
+    			t += '<option value="'+ i +'">'+ i +'月</option>';
+    		}
+    		$('[name=day]').html(t);
+    	})
+    	$('[name=day]').change(function(e) {
+    		if(!window.json.length){
+    			init();
+    			return
+    		}
+    		var mon = +$('[name=month]').val();
+    		var day = +$('[name=day]').val();
+    		var ind = 0;
+    		switch(mon)
+			{
+			    case 1:
+			        if(day>=20){
+			        	ind = 10
+			        }else{
+			        	ind = 9
+			        }
+			        break;
+			    case 2:
+			        if(day>=19){
+			        	ind = 11
+			        }else{
+			        	ind = 10
+			        }
+			        break;
+			    case 3:
+			        if(day>=21){
+			        	ind = 0;
+			        }else{
+			        	ind = 11
+			        }
+			        break;
+			    case 4:
+			        if(day>=20){
+			        	ind = 1;
+			        }else{
+			        	ind = 0
+			        }
+			        break;
+			    case 5:
+			        if(day>=21){
+			        	ind = 2;
+			        }else{
+			        	ind = 1
+			        }
+			        break;
+			    case 6:
+			        if(day>=22){
+			        	ind = 3;
+			        }else{
+			        	ind = 2
+			        }
+			        break;
+			    case 7:
+			        if(day>=23){
+			        	ind = 4;
+			        }else{
+			        	ind = 3
+			        }
+			        break;
+			    case 8:
+			        if(day>=23){
+			        	ind = 5;
+			        }else{
+			        	ind = 4
+			        }
+			        break;
+			    case 9:
+			        if(day>=23){
+			        	ind = 6;
+			        }else{
+			        	ind = 5
+			        }
+			        break;
+			    case 10:
+			        if(day>=24){
+			        	ind = 7;
+			        }else{
+			        	ind = 6
+			        }
+			        break;
+			    case 11:
+			        if(day>=23){
+			        	ind = 8;
+			        }else{
+			        	ind = 7
+			        }
+			        break;
+			    default:
+			        if(day>=22){
+			        	ind = 9;
+			        }else{
+			        	ind = 8
+			        }
+			}
+			$('.box').eq(1).find('.title').html(window.json[ind].name)
+			$('.box').eq(1).find('.content').html(window.json[ind].text)
+			action();
+    		
+    	})
+    	$(document).on('touchend',function(){
+
+    	})
+    	function getDaysInMonth(month){ 
+			month = parseInt(month,10);
+			var temp = new Date(2018,month,0); 
+			return temp.getDate(); 
+		}
+		$('.next').click(function(){
+			action();			
+		})
+		function action(){
+			var me = $('.next');
+			if(!me.hasClass('act')){
+				hide();
+				me.get(0).style.transform = 'rotate(180deg)';
+				me.addClass('act')
+			}else{
+				show();
+				me.get(0).style.transform = 'rotate(0deg)';
+				me.removeClass('act')
+			}
+		}
+		function hide(){
+			$('.box').eq(0).anim({ height: '0', opacity: 0 }, 1, 'ease-out')
+		}
+		function show(){
+			$('.box').eq(0).anim({ height: '100vh', opacity: 1 }, 1, 'ease-out')
+		}
+		
+		function init(){
+			document.write("<script src='data/json.js'><\/script>"); 		
+		}
+
+    </script>
+</html>
