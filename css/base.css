@@ -1,0 +1,40 @@
+*{padding: 0;margin: 0}
+html,body{font-size: 16px;}
+.um{height: 100vh;}
+.mar{margin: 0 auto;}
+.cbox{max-width: 750px;margin: 0 auto;}
+.bkant{
+	animation: myfirst 2s;
+	-webkit-animation: myfirst 2s;
+	animation-iteration-count:infinite;
+	-webkit-animation-iteration-count:infinite;
+	animation-direction: alternate;
+	-webkit-animation-direction: alternate;
+}
+@keyframes myfirst
+{
+	from {background-color: rgba(0,100,167,.2);}
+	to {background-color: rgba(0,100,167,.8);}
+}
+
+@-webkit-keyframes myfirst
+{
+	from {background-color: rgba(0,100,167,.2);}
+	to {background-color: rgba(0,100,167,.8);}
+}
+
+@-webkit-keyframes myMove {
+  0% {padding-top:30px;}
+  100% {padding-top:50px;}
+}
+
+@keyframes myMove {
+  0% {padding-top:30px;}
+  100% {padding-top:50px;}
+}
+#down {
+  text-align: center;
+  height: 150px;
+  -webkit-animation: myMove 1s linear infinite alternate;
+  animation: myMove 1s linear infinite alternate;
+}
