@@ -15,8 +15,8 @@
 			.selectbox select{width: 60%; height: 2.5em;margin: 2em 0; background: #bbd6e7;}
 			select, option{text-align: center;}
 			.title,.content{color: #fff;}
-			.title{font-size: 1.2em;margin: 2em 0;}
-			.content{text-indent: 2;padding: 1em}
+			.title{font-size: 1.2em;margin: 1em 0;}
+			.content{text-indent: 2em;padding:0 1em;margin-bottom: 4.5em; line-height: 1.5;overflow-y: auto;}
         </style>
     </head>
     <body ontouchstart>
@@ -24,7 +24,7 @@
         	<div class="next"></div>
         	<div class="ub box">
 	        	<div class="ub ub-f1 ub-ver ub-pc ub-ac selectbox">
-	        		<div class="ub ub-pc" style="margin-top: -2em;color: #fff;">请选择你的出生日期</div>
+	        		<div class="ub ub-pc" style="margin-top: -2em;color: #fff;">选择日期查询星座</div>
 					<select name="month" class="ub ub-pc">
 						<option value="0">请选择出生月份</option>
 						<option value="1">1月</option>
@@ -47,7 +47,7 @@
 			</div>
 			<div class="ub ub-ver box">
 				<div class="ub ub-pc title"></div>
-				<div class="ub content"></div>
+				<div class="ub ub-f1 content"></div>
 			</div>
         </div>
 
@@ -61,7 +61,7 @@
     		var v  = me.val();
     		var m  = getDaysInMonth(v);
     		var t  = '';
-    		var i  = 0;
+    		var i  = 1;
     		var n  = $('[name=day]');
     		if(v == 0){
     			n.attr('disabled','disabled')
@@ -69,8 +69,8 @@
     			n.removeAttr('disabled')
     			n.html('<option value="0">请选择出生日期</option>');
     		}
-    		for(;i < m;i++){
-    			t += '<option value="'+ i +'">'+ i +'月</option>';
+    		for(;i <= m;i++){
+    			t += '<option value="'+ i +'">'+ i +'号</option>';
     		}
     		$('[name=day]').html(t);
     	})
