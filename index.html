@@ -7,16 +7,16 @@
         <link rel="stylesheet" href="css/ui-box.css">
         <link rel="stylesheet" href="css/base.css">
         <style>
-        	body{background-image: url('img/bk.png');background-repeat:no-repeat;background-size: 100%;}
+        	body{background-image: url('img/bk.png');background-repeat:no-repeat;background-size: 180%;}
 			.cbox{height: 100vh;background-color: rgba(0,100,167,.5);overflow: hidden;position:relative;}
 			.box{height: 100vh;overflow: hidden;}
-			.next{width: 30%;height: 2.5em;position: absolute;bottom: 1em;left: 35%; background: url('img/dw.gif') no-repeat 100% center;cursor:pointer;z-index: 9}
+			.next{width: 50%;height: 2.5em;position: absolute;bottom: 1em;left: 25%; background: url('img/dw.gif') no-repeat 100% center;cursor:pointer;z-index: 9}
 			.selectbox{text-align: center;}
 			.selectbox select{width: 60%; height: 2.5em;margin: 2em 0; background: #bbd6e7;}
 			select, option{text-align: center;}
 			.title,.content{color: #fff;}
 			.title{font-size: 1.2em;margin: 2em 0;}
-			.content{text-indent: 2}
+			.content{text-indent: 2;padding: 1em}
         </style>
     </head>
     <body ontouchstart>
@@ -24,6 +24,7 @@
         	<div class="next"></div>
         	<div class="ub box">
 	        	<div class="ub ub-f1 ub-ver ub-pc ub-ac selectbox">
+	        		<div class="ub ub-pc" style="margin-top: -2em;color: #fff;">请选择你的出生日期</div>
 					<select name="month" class="ub ub-pc">
 						<option value="0">请选择出生月份</option>
 						<option value="1">1月</option>
@@ -177,7 +178,7 @@
     	})
     	function getDaysInMonth(month){ 
 			month = parseInt(month,10);
-			var temp = new Date(2018,month,0); 
+			var temp = new Date(2016,month,0); 
 			return temp.getDate(); 
 		}
 		$('.next').click(function(){
